@@ -67,8 +67,9 @@ function updateTotalCost() {
   for (let costElement of document.querySelectorAll('#cost')) {
     console.log("Cost Element:", costElement);
     console.log("TCost:", costElement.textContent);
-    totalCost += parseFloat(costElement.text);
+    totalCost += parseFloat(costElement.textContent);
   }
+  console.log("Total Cost:", totalCost); 
   console.log("TCOST ELEMENT", totalCostElement);
   totalCostElement.textContent = totalCost;
 }
@@ -152,6 +153,7 @@ document.getElementById('add-pizza').addEventListener('click', function() {
     updateCost(pizzaTypeElement, pizzaSizeElement, quantityElement, costElement);
     newPizzaOrderFields.querySelector('.remove-pizza').addEventListener('click', function() {
         pizzaOrderFields.removeChild(newPizzaOrderFields);
+        updateTotalCost();
       });
     pizzaOrderFields.appendChild(newPizzaOrderFields);
 
