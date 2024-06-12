@@ -1,0 +1,40 @@
+body {
+    background-color: rgb(221, 65, 70);
+    color: white; /* Change the default text color to white */
+}
+
+.navbar {
+    background-color: #f7a950;
+}
+
+.navbar-brand, .nav-link {
+    color: white !important;
+}
+
+.link-call-us {
+    color: black !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none; /* Remove the underline */
+    transition: color 0.5s ease; /* Add a transition effect */
+}
+
+.link-call-us:hover {
+    color: white !important;
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* This will take the full height of the viewport */
+}
+
+.container form {
+    width: 100%; /* Adjust this value to change the width of the form */
+    height: 100%; /* Adjust this value to change the height of the form */
+    max-width: 800px; /* This will prevent the form from becoming too wide on large screens */
+    max-height: 800px; /* This will prevent the form from becoming too tall on large screens */
+}
+

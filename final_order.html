@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg">
+    <a href="tel:413345-9821" class="link-call-us">
+      <span class="hidden-on-mbl">Call Us: </span>
+      <span class="hidden-on-mbp">(413) 345 - 9821</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="home.html" class="header-logo-link w-nav-brand" aria-label="home">
+    <img src="static/pizza_Logo.svg" alt="Logo - PizzaPlanet" class="header-logo">
+  </a>
+
+  <div class="container">
+    <form action="/checkout" method="post">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name">
+      </div>
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <input type="text" class="form-control" id="address" name="address" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone number:</label>
+        <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{11}" required>
+      </div>
+      <button type="submit" id="submit-form" class="btn btn-primary">Place Order!</button>
+    </form> 
+  </div>
+  <script src="/static/script-final.js"></script>
+</body>
+</html>
