@@ -6,3 +6,4 @@ python-dotenv==1.0.1
 SQLAlchemy==2.0.27
 redis==3.5.3
 psycopg2-binary==2.8.6
+openpyxl==3.0.7
