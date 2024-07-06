@@ -1,0 +1,5 @@
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - 7521:6379

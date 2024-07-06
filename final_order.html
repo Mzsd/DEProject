@@ -44,6 +44,9 @@
         <label for="phone">Phone number:</label>
         <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{11}" required>
       </div>
+      <label for="total_cost">Total cost:</label>
+      <span id="total_cost">{{ total_cost }}</span><br>
+      <input type="hidden" name="token" value="{{ request.query_params['token'] }}">
       <button type="submit" id="submit-form" class="btn btn-primary">Place Order!</button>
     </form> 
   </div>
