@@ -52,6 +52,27 @@
             overflow: hidden;
             /* Hide overflow on container */
         }
+        
+        .centered-div {
+            text-align: center;
+            margin-top: 20px;
+            /* Adjust margin-top as needed */
+        }
+        
+        .centered-div p:first-child {
+            font-size: 48px;
+            /* Adjust font size for the main tagline */
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            /* Space between the two paragraphs */
+        }
+        
+        .centered-div p:last-child {
+            font-size: 24px;
+            /* Adjust font size for the secondary tagline */
+            font-style: italic;
+        }
     </style>
 </head>
 
@@ -64,6 +85,11 @@
             <span class="hidden-on-mbp"><i class="fa fa-phone"></i> +44 133459821 </span>
         </a>
     </nav>
+
+    <div class="centered-div">
+        <p>Explore Global Flavors, Delivered Hot and Fast Across the UK! <i class="fa fa-rocket"></i></p>
+        <p>Discover a slice of the world at your doorstep <i class="fa fa-globe"></i></p>
+    </div>
 
     <div class="container">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#orderModalCenter">
