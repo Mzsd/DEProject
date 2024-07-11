@@ -107,7 +107,7 @@ document.getElementById('add-pizza').addEventListener('click', function() {
     newPizzaOrderFields.className = `pizza-group-${pizzaGroupCounter}`;
     newPizzaOrderFields.innerHTML = `
       
-      <div class="form-group">
+      <div class="form-group" style = "margin-top: 20px;">
         <label for="pizza_size">Size:</label>
         <select id="pizza_size" name="pizza_size">
           <option value="small">Small</option>
@@ -129,7 +129,8 @@ document.getElementById('add-pizza').addEventListener('click', function() {
         <label for="cost">Cost:</label>
         <span id="cost"></span>
       </div>
-      <button type="button" class="remove-pizza">Remove this pizza</button>
+        <button type="button" class="remove-pizza" style = "margin-top: 20px; margin-bottom: 20px;">Remove this pizza</button>
+      <br>
     `;
     console.log(newPizzaOrderFields);
     let pizzaTypeElement = newPizzaOrderFields.querySelector('#pizza_type');
