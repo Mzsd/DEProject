@@ -1,3 +1,4 @@
 /kafka/bitnami
 /__pycache__
 /postgres/data
+/postgres/.env

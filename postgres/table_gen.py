@@ -7,7 +7,9 @@ import random
 import os
 
 df = pd.read_excel('Data Model - Pizza Sales.xlsx')
-uniq_pizza = df[['pizza_id', 'pizza_name', 'pizza_size', 'pizza_category', 'unit_price']].drop_duplicates()
+uniq_pizza = df[
+        ['pizza_id', 'pizza_name', 'pizza_size', 'pizza_category', 'unit_price']
+    ].drop_duplicates()
 sorted_uniq_pizza_df = uniq_pizza.sort_values(by=['pizza_id'])
 
 load_dotenv()
@@ -28,3 +30,21 @@ engine = create_engine(
 conn = engine.connect()
 
 sorted_uniq_pizza_df.to_sql('pizza', con=conn, if_exists='replace', index=False)
+
+# Store number of orders data
+df['order_date'] = df['order_date'].astype(str)
+df['order_time'] = df['order_time'].astype(str)
+
+df['order_datetime'] = pd.to_datetime(df['order_date'] + ' ' + df['order_time'])
+df['order_hour'] = df['order_datetime'].dt.hour
+
+df['order_weekday'] = df['order_datetime'].dt.day_name()
+
+orders_per_hour_weekday = df.groupby(['order_hour', 'order_weekday']).size().reset_index(name='order_count')
+
+orders_per_hour_weekday['original_order_count'] = orders_per_hour_weekday['order_count']
+
+order_multiplier = round(random.uniform(1, 6), 6)
+orders_per_hour_weekday['order_count'] = orders_per_hour_weekday['original_order_count'] * order_multiplier
+
+orders_per_hour_weekday.to_sql('orders_per_hour', con=conn, if_exists='replace', index=False)
