@@ -1,0 +1,31 @@
+services:
+
+  redis:
+    extends:
+      file: ./redis/redis-service.yml
+      service: redis
+
+  postgres:
+    extends:
+      file: ./postgres/postgres-service.yml
+      service: db
+
+  zookeeper:
+    extends:
+      file: ./kafka/kafka-services.yml
+      service: zookeeper
+
+  kafka:
+    extends:
+      file: ./kafka/kafka-services.yml
+      service: kafka
+
+  kafdrop:
+    extends:
+      file: ./kafka/kafka-services.yml
+      service: kafdrop
+
+  mongo:
+    extends:
+      file: ./Mongo/mongo-service.yml
+      service: mongodb
