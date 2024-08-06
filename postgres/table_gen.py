@@ -6,13 +6,18 @@ import psycopg2
 import random
 import os
 
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+env_path = os.path.join(parent_dir, ".env")
+
+print(env_path)
+print('Generating tables...')
 df = pd.read_excel('Data Model - Pizza Sales.xlsx')
 uniq_pizza = df[
         ['pizza_id', 'pizza_name', 'pizza_size', 'pizza_category', 'unit_price']
     ].drop_duplicates()
 sorted_uniq_pizza_df = uniq_pizza.sort_values(by=['pizza_id'])
 
-load_dotenv()
+load_dotenv(dotenv_path=env_path)
 
 conn = psycopg2.connect(
     dbname=os.getenv('DB_NAME'),
@@ -48,3 +53,5 @@ order_multiplier = round(random.uniform(1, 6), 6)
 orders_per_hour_weekday['order_count'] = orders_per_hour_weekday['original_order_count'] * order_multiplier
 
 orders_per_hour_weekday.to_sql('orders_per_hour', con=conn, if_exists='replace', index=False)
+
+print('Tables generated successfully!')

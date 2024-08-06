@@ -28,6 +28,8 @@ else:
     print("[-] Could not connect to Redis")
 
 pizza_df = None
+# Postcode data - should be in realtime using google api
+postcodes_df = pd.read_csv("postcode_latlong.csv")
 
 ### HELPER FUNCTIONS
 #
@@ -118,6 +120,7 @@ async def create_order(request: Request, pizzas: str = Body(...)):
 
     # Encode pizzas string to safely include it in the URL
     order_token = str(uuid.uuid4())
+    
     # Merge order_token with order_id and generate a hash of that
     merged_id = str([order_token, order_id, order_time])
     hashed_id = hashlib.sha256(merged_id.encode()).hexdigest()
@@ -136,13 +139,19 @@ async def create_order(checkout: str = Body(...)):
     
     checkouts = {c.split('=')[0]: c.split('=')[1] for c in checkout.split('&')}
     checkouts['checkout_time'] = int(time.time())
+    checkouts['address'] = checkouts['address'].replace("+", " ")
+    
     order_details = json.loads(r.get(checkouts['token']))
     pizzas = order_details['pizzas']
+    
+    print(checkouts)
     
     if pizzas:
         checkouts['total_cost'] = fetch_total_cost(pizzas)
         checkouts['order_id'] = order_details['order_id']
         checkouts['order_time'] = order_details['order_time']
+        checkouts['latitude'] = postcodes_df[postcodes_df['postcode'] == checkouts['address']]['latitude'].values[0]
+        checkouts['longitude'] = postcodes_df[postcodes_df['postcode'] == checkouts['address']]['longitude'].values[0]
         
         r.delete(checkouts['token'])
         del checkouts['token']

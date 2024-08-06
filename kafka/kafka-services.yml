@@ -6,15 +6,15 @@ services:
       - '2181:2181'
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
-    volumes:
-      - ./bitnami/zookeeper/data:/bitnami/zookeeper/data
 
   kafka:
     image: 'bitnami/kafka:latest'
     container_name: kafka
     ports:
+      - '9092:9092'
       - '9093:9093'
     expose:
+      - 9092
       - 9093
     environment:
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
@@ -27,8 +27,6 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
-    volumes:
-      - ./bitnami/kafka:/bitnami/kafka
 
   kafdrop:
     image: obsidiandynamics/kafdrop:latest
@@ -40,3 +38,4 @@ services:
       JVM_OPTS: "-Xms32M -Xmx64M" 
     depends_on:
       - kafka
+
