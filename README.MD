@@ -30,6 +30,8 @@ username = "user"
 password = "pass"
 ```
 
+Run change_mongo_pass.sh to adjust passwords mongo
+
 To start the system just run start.sh on linux
 
 Before starting make sure all the packages are installed using:
