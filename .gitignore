@@ -1,1 +1,11 @@
 /kafka/bitnami
+/__pycache__
+/postgres/data
+/postgres/.env
+/.env
+/Mongo/.env
+/Mongo/data
+/EventsConsumer/__pycache__
+.env
+__pycache__
+/StreamlitApp/.streamlit
