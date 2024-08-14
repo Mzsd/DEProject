@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import altair as alt
 import streamlit as st
-from datetime import datetime
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from streamlit_autorefresh import st_autorefresh
 
@@ -23,17 +23,18 @@ st.set_page_config(
 alt.themes.enable("dark")
 
 col = st.columns((1.5, 4.5, 2), gap='medium')
+ 
 
 with st.sidebar:
     st.title('🏂 Pizza Takeaway Dashboard')
-    
-@st.cache_resource(ttl=1)
+    st.session_state.time_filter = st.selectbox("Select Time Period", ["Daily", "Monthly", "Yearly", "All time"])
+        
+@st.cache_resource()
 def init_connection():
     return pymongo.MongoClient(**st.secrets["mongo"])
 
 client = init_connection()
 
-@st.cache_data(ttl=1)
 def get_data(db_name, collection_name):
     db = client[db_name]
     collection = db[collection_name]
@@ -44,40 +45,71 @@ def get_data(db_name, collection_name):
 db = "pizza_orders_db"
 collections = [os.getenv("KAFKA_TOPIC_PIZZA"), os.getenv("KAFKA_TOPIC_CHECKOUT")]
 
-pizza_orders = get_data(db, os.getenv("KAFKA_TOPIC_PIZZA"))
-checkout_orders = get_data(db, os.getenv("KAFKA_TOPIC_CHECKOUT"))
+def filter_data_by_time(df, time_filter):
+    now = datetime.now()
+    if time_filter == "Daily":
+        start_time = now - timedelta(days=1)
+    elif time_filter == "Monthly":
+        start_time = now - timedelta(days=30)
+    elif time_filter == "Yearly":
+        start_time = now - timedelta(days=365)
+    else:
+        return df  # All time, no filtering
 
-# Convert to DataFrame for easier manipulation
-pizza_orders_df = pd.DataFrame(pizza_orders)
-checkout_orders_df = pd.DataFrame(checkout_orders)
+    return df[df['order_time'] >= start_time]
 
-# Get pizza df connected with pizza_orders_df with order_id
-pizzas = []
-for item in pizza_orders:
-    pizzas_per_order = item.get('pizzas', [])
-    for pizza in pizzas_per_order:
-        pizza['order_id'] = item.get('order_id')
-    pizzas += pizzas_per_order
+def get_recent_data(time_filter):
+    print("Getting recent data")
+    pizza_orders = get_data(db, os.getenv("KAFKA_TOPIC_PIZZA"))
+    checkout_orders = get_data(db, os.getenv("KAFKA_TOPIC_CHECKOUT"))
 
-pizza_df = pd.DataFrame(pizzas)
+    # Convert to DataFrame for easier manipulation
+    pizza_orders_df = pd.DataFrame(pizza_orders)
+    checkout_orders_df = pd.DataFrame(checkout_orders)
+
+    # Filter data based on time period
+    pizza_orders_df['order_time'] = pizza_orders_df['order_time'].apply(lambda x : datetime.fromtimestamp(x))
+    checkout_orders_df['order_time'] = checkout_orders_df['order_time'].apply(lambda x : datetime.fromtimestamp(x))
+    
+    pizza_orders_df = filter_data_by_time(pizza_orders_df, time_filter)
+    checkout_orders_df = filter_data_by_time(checkout_orders_df, time_filter)
+
+    # Get pizza df connected with pizza_orders_df with order_id
+    pizzas = []
+    for item in pizza_orders_df.to_dict('records'):
+        pizzas_per_order = item.get('pizzas', [])
+        for pizza in pizzas_per_order:
+            pizza['order_id'] = item.get('order_id')
+        pizzas += pizzas_per_order
+
+    pizza_df = pd.DataFrame(pizzas)
+    
+    return pizza_orders_df, checkout_orders_df, pizza_df
+
+@st.fragment(run_every=1)
+def show_latest_orders_data():
+    print(f"Showing latest orders data {st.session_state.time_filter}")
+    pizza_orders_df, checkout_orders_df, pizza_df = get_recent_data(st.session_state.time_filter)
+    st.metric(label="Pizza Orders", value=len(pizza_orders_df))#, delta=first_state_delta)
+    st.metric(label="Successful Checkout Orders", value=len(checkout_orders_df))#, delta=first_state_delta)
+    
+    return pizza_orders_df, checkout_orders_df, pizza_df
 
 with col[0]:
     # Display summary statistics
     st.markdown("#### Today's 🍕 Orders")
-    st.metric(label="Pizza Orders", value=len(pizza_orders_df))#, delta=first_state_delta)
-    st.metric(label="Successful Checkout Orders", value=len(checkout_orders_df))#, delta=first_state_delta)
+    pizza_orders_df, checkout_orders_df, pizza_df = show_latest_orders_data()
+    
     
 if not checkout_orders_df.empty:
-    
     # Count number of same latitude and longitude
     lat_long_counts = checkout_orders_df[['latitude', 'longitude']].groupby(['latitude', 'longitude']).size().reset_index(name='size')
     lat_long_counts['size'] = lat_long_counts['size'] * 5
     
     with col[1]:
-
         # Display a map of the data
         st.map(lat_long_counts, size='size')
-            
+
         # Visualize pizza types ordered
         st.subheader('Pizza Types Ordered')
         pizza_types = pizza_orders_df.explode('pizzas')['pizzas'].apply(lambda x: x['pizza_type'])

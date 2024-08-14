@@ -1,96 +1,270 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="static/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PizzaPlanet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .navbar-custom {
+            background-color: black;
+        }
+        
+        .navbar-custom .navbar-brand img {
+            height: 40px;
+        }
+        
+        .navbar-custom .link-call-us {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .navbar-custom .link-call-us:hover {
+            text-decoration: underline;
+        }
+        
+        .navbar-custom .hidden-on-mbl {
+            display: none;
+        }
+        
+        .navbar-custom .hidden-on-mbp {
+            display: block;
+        }
+        
+        @media (min-width: 768px) {
+            .navbar-custom .hidden-on-mbl {
+                display: inline;
+            }
+            .navbar-custom .hidden-on-mbp {
+                display: block;
+            }
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+            /* Full viewport height */
+            overflow: hidden;
+            /* Hide overflow on container */
+        }
+        
+        .tagline {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            /* Adjust margin-top as needed */
+        }
+        
+        .tagline p:first-child {
+            font-size: 48px;
+            /* Adjust font size for the main tagline */
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            /* Space between the two paragraphs */
+        }
+        
+        .tagline p:last-child {
+            font-size: 24px;
+            /* Adjust font size for the secondary tagline */
+            font-style: italic;
+        }
+        
+        body {
+            background-image: url('/static/pizza.jpg');
+            background-size: cover;
+            /* Adjust as needed */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
 </head>
+
 <body>
-  <nav class="navbar navbar-expand-lg">
-    <a href="tel:413345-9821" class="link-call-us">
-      <span class="hidden-on-mbl">Call Us: </span>
-      <span class="hidden-on-mbp">(413) 345 - 9821</span>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-        </li>
-      </ul>
+    <nav class="navbar navbar-custom justify-content-between">
+        <a class="navbar-brand" href="#">
+            <img src="static/pizza_Logo.svg" alt="Logo - PizzaPlanet" class="header-logo" />
+        </a>
+        <a href="tel:413345-9821" class="link-call-us">
+            <span class="hidden-on-mbp"><i class="fa fa-phone"></i> +44 133459821 </span>
+        </a>
+    </nav>
+
+    <div class="tagline">
+        <p> Delivered Hot Across the UK</p>
+        <p>Discover a slice of the world at your doorstep <i class="fa fa-globe"></i></p>
     </div>
-  </nav>
 
-  <a href="home.html" class="header-logo-link w-nav-brand" aria-label="home">
-    <img src="static/pizza_Logo.svg" alt="Logo - PizzaPlanet" class="header-logo">
-  </a>
+    <div class="container">
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#orderModalCenter">
+            Place Your Order
+        </button>
 
-  <div class="container"> 
-    <form action="/first_order" method="post">
-      <div class="pizza-order-fields">
-        <div class="pizza-group-0">
-          <div class="form-group">
-            <label for="pizza_size">Size:</label>
-            <select id="pizza_size" name="pizza_size">
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="pizza_type">Type:</label>
-            <select id="pizza_type" name="pizza_type">
-              <option value="the-italian-vegetables-pizza">The Italian Vegetables Pizza</option>
-              <option value="the-napolitana-pizza">The Napolitana Pizza</option>
-              <option value="the-thai-chicken-pizza">The Thai Chicken Pizza</option>
-              <option value="the-four-cheese-pizza">The Four Cheese Pizza</option>
-              <option value="the-hawaiian-pizza">The Hawaiian Pizza</option>
-              <option value="the-green-garden-pizza">The Green Garden Pizza</option>
-              <option value="the-barbecue-chicken-pizza">The Barbecue Chicken Pizza</option>
-              <option value="the-southwest-chicken-pizza">The Southwest Chicken Pizza</option>
-              <option value="the-pepperoni,-mushroom,-and-peppers-pizza">The Pepperoni, Mushroom, and Peppers Pizza</option>
-              <option value="the-vegetables-+-vegetables-pizza">The Vegetables + Vegetables Pizza</option>
-              <option value="the-spinach-pesto-pizza">The Spinach Pesto Pizza</option>
-              <option value="the-italian-supreme-pizza">The Italian Supreme Pizza</option>
-              <option value="the-mexicana-pizza">The Mexicana Pizza</option>
-              <option value="the-mediterranean-pizza">The Mediterranean Pizza</option>
-              <option value="the-spinach-and-feta-pizza">The Spinach and Feta Pizza</option>
-              <option value="the-pepperoni-pizza">The Pepperoni Pizza</option>
-              <option value="the-brie-carre-pizza">The Brie Carre Pizza</option>
-              <option value="the-chicken-pesto-pizza">The Chicken Pesto Pizza</option>
-              <option value="the-chicken-alfredo-pizza">The Chicken Alfredo Pizza</option>
-              <option value="the-soppressata-pizza">The Soppressata Pizza</option>
-              <option value="the-five-cheese-pizza">The Five Cheese Pizza</option>
-              <option value="the-pepper-salami-pizza">The Pepper Salami Pizza</option>
-              <option value="the-classic-deluxe-pizza">The Classic Deluxe Pizza</option>
-              <option value="the-california-chicken-pizza">The California Chicken Pizza</option>
-              <option value="the-greek-pizza">The Greek Pizza</option>
-              <option value="the-calabrese-pizza">The Calabrese Pizza</option>
-              <option value="the-spinach-supreme-pizza">The Spinach Supreme Pizza</option>
-              <option value="the-sicilian-pizza">The Sicilian Pizza</option>
-              <option value="the-italian-capocollo-pizza">The Italian Capocollo Pizza</option>
-              <option value="the-prosciutto-and-arugula-pizza">The Prosciutto and Arugula Pizza</option>
-              <option value="the-big-meat-pizza">The Big Meat Pizza</option>
-              <option value="the-spicy-italian-pizza">The Spicy Italian Pizza</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="quantity">Quantity:</label>
-            <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="10" value="1">
-          </div>
-          <div class="form-group">
-            <label for="cost">Cost:</label>
-            <span id="cost"></span>
-          </div>
+        <div class="modal fade" id="orderModalCenter" tabindex="-1" role="dialog" aria-labelledby="orderModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="orderModalLongTitle">
+                            Place Your Order
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/first_order" method="post" class="form-scrollable">
+                            <div class="pizza-order-fields">
+                                <div class="pizza-group-0">
+                                    <div class="form-group">
+                                        <label for="pizza_size">Size:</label>
+                                        <select id="pizza_size" name="pizza_size" class="form-control">
+                                            <option value="small">Small</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="large">Large</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pizza_type">Type:</label>
+                                        <select id="pizza_type" name="pizza_type" class="form-control">
+                                            <option value="the-italian-vegetables-pizza">
+                                                The Italian Vegetables Pizza
+                                            </option>
+                                            <option value="the-napolitana-pizza">
+                                                The Napolitana Pizza
+                                            </option>
+                                            <option value="the-thai-chicken-pizza">
+                                                The Thai Chicken Pizza
+                                            </option>
+                                            <option value="the-four-cheese-pizza">
+                                                The Four Cheese Pizza
+                                            </option>
+                                            <option value="the-hawaiian-pizza">
+                                                The Hawaiian Pizza
+                                            </option>
+                                            <option value="the-green-garden-pizza">
+                                                The Green Garden Pizza
+                                            </option>
+                                            <option value="the-barbecue-chicken-pizza">
+                                                The Barbecue Chicken Pizza
+                                            </option>
+                                            <option value="the-southwest-chicken-pizza">
+                                                The Southwest Chicken Pizza
+                                            </option>
+                                            <option value="the-pepperoni,-mushroom,-and-peppers-pizza">
+                                                The Pepperoni, Mushroom, and Peppers Pizza
+                                            </option>
+                                            <option value="the-vegetables-+-vegetables-pizza">
+                                                The Vegetables + Vegetables Pizza
+                                            </option>
+                                            <option value="the-spinach-pesto-pizza">
+                                                The Spinach Pesto Pizza
+                                            </option>
+                                            <option value="the-italian-supreme-pizza">
+                                                The Italian Supreme Pizza
+                                            </option>
+                                            <option value="the-mexicana-pizza">
+                                                The Mexicana Pizza
+                                            </option>
+                                            <option value="the-mediterranean-pizza">
+                                                The Mediterranean Pizza
+                                            </option>
+                                            <option value="the-spinach-and-feta-pizza">
+                                                The Spinach and Feta Pizza
+                                            </option>
+                                            <option value="the-pepperoni-pizza">
+                                                The Pepperoni Pizza
+                                            </option>
+                                            <option value="the-brie-carre-pizza">
+                                                The Brie Carre Pizza
+                                            </option>
+                                            <option value="the-chicken-pesto-pizza">
+                                                The Chicken Pesto Pizza
+                                            </option>
+                                            <option value="the-chicken-alfredo-pizza">
+                                                The Chicken Alfredo Pizza
+                                            </option>
+                                            <option value="the-soppressata-pizza">
+                                                The Soppressata Pizza
+                                            </option>
+                                            <option value="the-five-cheese-pizza">
+                                                The Five Cheese Pizza
+                                            </option>
+                                            <option value="the-pepper-salami-pizza">
+                                                The Pepper Salami Pizza
+                                            </option>
+                                            <option value="the-classic-deluxe-pizza">
+                                                The Classic Deluxe Pizza
+                                            </option>
+                                            <option value="the-california-chicken-pizza">
+                                                The California Chicken Pizza
+                                            </option>
+                                            <option value="the-greek-pizza">The Greek Pizza</option>
+                                            <option value="the-calabrese-pizza">
+                                                The Calabrese Pizza
+                                            </option>
+                                            <option value="the-spinach-supreme-pizza">
+                                                The Spinach Supreme Pizza
+                                            </option>
+                                            <option value="the-sicilian-pizza">
+                                                The Sicilian Pizza
+                                            </option>
+                                            <option value="the-italian-capocollo-pizza">
+                                                The Italian Capocollo Pizza
+                                            </option>
+                                            <option value="the-prosciutto-and-arugula-pizza">
+                                                The Prosciutto and Arugula Pizza
+                                            </option>
+                                            <option value="the-big-meat-pizza">
+                                                The Big Meat Pizza
+                                            </option>
+                                            <option value="the-spicy-italian-pizza">
+                                                The Spicy Italian Pizza
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="quantity">Quantity:</label>
+                                        <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="10" value="1" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cost">Cost:</label>
+                                        <span id="cost"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="button" id="add-pizza" class="btn btn-secondary">
+                                Add another pizza</button><br />
+
+                            <div class="modal-footer">
+                                <label for="total_cost">Total cost:</label>
+                                <span id="total_cost"></span><br />
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="submit" id="submit-form" class="btn btn-primary">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
 
-      <button type="button" id="add-pizza">Add another pizza</button><br>
-      <label for="total_cost">Total cost:</label>
-      <span id="total_cost"></span><br>
-      <button type="submit" id="submit-form" class="btn btn-primary">Add to Cart</button>
-    </form>
-  </div>
-  <script src="static/script-home.js"></script>
+    <script src="static/script-home.js"></script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

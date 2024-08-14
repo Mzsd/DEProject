@@ -1,55 +1,156 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="static/style.css">
-</head>
-<body>
+<html lang="en">
 
-  <nav class="navbar navbar-expand-lg">
-    <a href="tel:413345-9821" class="link-call-us">
-      <span class="hidden-on-mbl">Call Us: </span>
-      <span class="hidden-on-mbp">(413) 345 - 9821</span>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PizzaPlanet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .navbar-custom {
+            background-color: black;
+        }
+        
+        .navbar-custom .navbar-brand img {
+            height: 40px;
+        }
+        
+        .navbar-custom .link-call-us {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .navbar-custom .link-call-us:hover {
+            text-decoration: underline;
+        }
+        
+        .navbar-custom .hidden-on-mbl {
+            display: none;
+        }
+        
+        .navbar-custom .hidden-on-mbp {
+            display: block;
+        }
+        
+        @media (min-width: 768px) {
+            .navbar-custom .hidden-on-mbl {
+                display: inline;
+            }
+            .navbar-custom .hidden-on-mbp {
+                display: block;
+            }
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+            /* Full viewport height */
+            overflow: hidden;
+            /* Hide overflow on container */
+        }
+        
+        .tagline {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            /* Adjust margin-top as needed */
+        }
+        
+        .tagline p:first-child {
+            font-size: 48px;
+            /* Adjust font size for the main tagline */
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            /* Space between the two paragraphs */
+        }
+        
+        .tagline p:last-child {
+            font-size: 24px;
+            /* Adjust font size for the secondary tagline */
+            font-style: italic;
+        }
+        
+        body {
+            background-image: url('/static/pizza.jpg');
+            background-size: cover;
+            /* Adjust as needed */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-custom justify-content-between">
+    <a class="navbar-brand" href="#">
+        <img src="static/pizza_Logo.svg" alt="Logo - PizzaPlanet" class="header-logo" />
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-        </li>
-      </ul>
-    </div>
+    <a href="tel:413345-9821" class="link-call-us">
+        <span class="hidden-on-mbp"><i class="fa fa-phone"></i> +44 133459821 </span>
+    </a>
   </nav>
 
-  <a href="home.html" class="header-logo-link w-nav-brand" aria-label="home">
-    <img src="static/pizza_Logo.svg" alt="Logo - PizzaPlanet" class="header-logo">
-  </a>
+  <div class="tagline">
+      <p> Delivered Hot Across the UK</p>
+      <p>Discover a slice of the world at your doorstep <i class="fa fa-globe"></i></p>
+  </div>
 
   <div class="container">
-    <form action="/checkout" method="post">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" class="form-control" id="name" name="name">
-      </div>
-      <div class="form-group">
-        <label for="address">Address:</label>
-        <input type="text" class="form-control" id="address" name="address" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" name="email">
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone number:</label>
-        <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{11}" required>
-      </div>
-      <label for="total_cost">Total cost:</label>
-      <span id="total_cost">{{ total_cost }}</span><br>
-      <input type="hidden" name="token" value="{{ request.query_params['token'] }}">
-      <button type="submit" id="submit-form" class="btn btn-primary">Place Order!</button>
-    </form> 
+    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#orderModalCenter">
+        Complete Order
+    </button>
+
+
+    <div class="modal fade" id="orderModalCenter" tabindex="-1" role="dialog" aria-labelledby="orderModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="orderModalLongTitle">
+                      Place Your Order
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                <form action="/checkout" method="post">
+                  <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" class="form-control" id="address" name="address" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                  </div>
+                  <div class="form-group">
+                    <label for="phone">Phone number:</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{11}" required>
+                  </div>
+                  <label for="total_cost">Total cost:</label>
+                  <span id="total_cost">{{ total_cost }}</span><br>
+                  <input type="hidden" name="token" value="{{ request.query_params['token'] }}">
+                  <button type="submit" id="submit-form" class="btn btn-primary">Place Order!</button>
+                </form> 
+              </div>
+            </div>
+        </div>
+    </div>
   </div>
   <script src="/static/script-final.js"></script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
