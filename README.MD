@@ -1,3 +1,31 @@
+Install docker using this URI:
+
+```
+https://docs.docker.com/engine/install/ubuntu/
+```
+
+Configure docker to work without root:
+```
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+Check if docker can be run without root:
+```
+docker run hello-world
+```
+
+Reboot if still got error:
+```
+reboot
+```
+
+For more detail about docker config refer to this URI:
+```
+https://stackoverflow.com/questions/48957195/how-to-fix-docker-got-permission-denied-issue
+```
+
 Make sure .env file exists in the main folder containing environments mentioned below:
 
 ```
