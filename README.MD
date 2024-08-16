@@ -4,7 +4,7 @@ Install docker using this URI:
 https://docs.docker.com/engine/install/ubuntu/
 ```
 
-Configure docker to work without root:
+if you get error "permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock" configure docker to work without root:
 ```
 sudo groupadd docker
 sudo usermod -aG docker $USER

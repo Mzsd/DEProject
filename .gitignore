@@ -7,5 +7,4 @@
 /Mongo/data
 /EventsConsumer/__pycache__
 .env
-__pycache__
 /StreamlitApp/.streamlit
