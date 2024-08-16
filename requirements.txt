@@ -11,3 +11,5 @@ openpyxl==3.0.7
 uvicorn==0.30.1
 streamlit==1.37.1
 pymongo==4.6.2
+fake_headers==1.0.2
+faker==27.0.0
