@@ -58,7 +58,7 @@ def filter_data_by_time(df, time_filter):
     return df[df['order_time'] >= start_time]
 
 def get_recent_data(time_filter):
-    print("Getting recent data")
+    # print("Getting recent data")
     pizza_orders = get_data(db, os.getenv("KAFKA_TOPIC_PIZZA"))
     checkout_orders = get_data(db, os.getenv("KAFKA_TOPIC_CHECKOUT"))
 
@@ -87,7 +87,7 @@ def get_recent_data(time_filter):
 
 @st.fragment(run_every=1)
 def show_latest_orders_data():
-    print(f"Showing latest orders data {st.session_state.time_filter}")
+    # print(f"Showing latest orders data {st.session_state.time_filter}")
     pizza_orders_df, checkout_orders_df, pizza_df = get_recent_data(st.session_state.time_filter)
     st.metric(label="Pizza Orders", value=len(pizza_orders_df))#, delta=first_state_delta)
     st.metric(label="Successful Checkout Orders", value=len(checkout_orders_df))#, delta=first_state_delta)
@@ -96,7 +96,15 @@ def show_latest_orders_data():
 
 with col[0]:
     # Display summary statistics
-    st.markdown("#### Today's 🍕 Orders")
+    if st.session_state.time_filter == "Daily":
+        st.markdown("#### Today's 🍕 Orders")
+    elif st.session_state.time_filter == "Monthly":
+        st.markdown("#### Monthly 🍕 Orders")
+    elif st.session_state.time_filter == "Yearly":
+        st.markdown("#### Yearly 🍕 Orders")
+    else:
+        st.markdown("#### All-time 🍕 Orders")
+    # st.markdown("#### Today's 🍕 Orders")
     pizza_orders_df, checkout_orders_df, pizza_df = show_latest_orders_data()
     
     
