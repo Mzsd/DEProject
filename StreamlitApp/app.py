@@ -109,12 +109,19 @@ if not checkout_orders_df.empty:
         st.map(lat_long_counts, size='size')
 
         # Visualize pizza types ordered
-        st.subheader('Pizza Types Ordered')
+        # st.subheader('Pizza Types Ordered')
+        # pizza_types = pizza_orders_df.explode('pizzas')['pizzas'].apply(lambda x: x['pizza_type'])
+        # pizza_type_counts = pizza_types.value_counts().reset_index()
+        # pizza_type_counts.columns = ['pizza_type', 'count']
+        # pizza_type_chart = alt.Chart(pizza_type_counts).mark_bar().encode(
+        #     x=alt.X('pizza_type', axis=alt.Axis(labelAngle=0)),
+        #     y='count'
+        # )
+        # st.altair_chart(pizza_type_chart, use_container_width=True)
+
+        # Display a pie chart of pizza types ordered
+        st.subheader("Pizza Types Ordered")
         pizza_types = pizza_orders_df.explode('pizzas')['pizzas'].apply(lambda x: x['pizza_type'])
         pizza_type_counts = pizza_types.value_counts().reset_index()
-        pizza_type_counts.columns = ['pizza_type', 'count']
-        pizza_type_chart = alt.Chart(pizza_type_counts).mark_bar().encode(
-            x=alt.X('pizza_type', axis=alt.Axis(labelAngle=0)),
-            y='count'
-        )
-        st.altair_chart(pizza_type_chart, use_container_width=True)
+        fig = px.pie(pizza_type_counts, names='Pizza Type', values='Number of Orders', title='Distribution of Pizza Types Ordered')
+        st.plotly_chart(fig)
