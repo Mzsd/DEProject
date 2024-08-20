@@ -120,7 +120,7 @@ if not checkout_orders_df.empty:
     # Count number of same latitude and longitude
     lat_long_counts = checkout_orders_df[['latitude', 'longitude']].groupby(['latitude', 'longitude']).size().reset_index(name='size')
     lat_long_counts['size'] = lat_long_counts['size'] / sum(lat_long_counts['size'])
-    
+    print(lat_long_counts)
     with col[1]:
         # Display a map of the data
         st.map(lat_long_counts, color='size')
