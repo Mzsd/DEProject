@@ -125,7 +125,7 @@ if not checkout_orders_df.empty:
             255 - int(x / sum(lat_long_counts['size']) * 255)
         )
     )
-    lat_long_counts['size'] = 100
+    lat_long_counts['size'] = 250
     print(lat_long_counts)
     with col[1]:
         # Display a map of the data
