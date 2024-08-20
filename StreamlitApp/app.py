@@ -85,13 +85,19 @@ def get_recent_data(time_filter):
     
     return pizza_orders_df, checkout_orders_df, pizza_df
 
-@st.fragment(run_every=1)
 def show_latest_orders_data():
-    # print(f"Showing latest orders data {st.session_state.time_filter}")
     pizza_orders_df, checkout_orders_df, pizza_df = get_recent_data(st.session_state.time_filter)
-    st.metric(label="Pizza Orders", value=len(pizza_orders_df))#, delta=first_state_delta)
-    st.metric(label="Successful Checkout Orders", value=len(checkout_orders_df))#, delta=first_state_delta)
-    st.metric(label="Revenue", value=f"£{sum(checkout_orders_df['total_cost'])}")#, delta=first_state_delta)
+    st.metric(label="Pizza Orders", value=len(pizza_orders_df))
+    st.metric(label="Successful Checkout Orders", value=len(checkout_orders_df))
+    
+    # Calculate and display revenue with formatting
+    total_revenue = sum(checkout_orders_df['total_cost'])
+    if total_revenue >= 1_000_000:
+        revenue_display = f"£{total_revenue / 1_000_000:.1f}m"
+    else:
+        revenue_display = f"£{total_revenue:,.2f}"
+    
+    st.metric(label="Revenue", value=revenue_display)
     
     return pizza_orders_df, checkout_orders_df, pizza_df
 
