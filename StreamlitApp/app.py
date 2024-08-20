@@ -119,8 +119,8 @@ with col[0]:
 if not checkout_orders_df.empty:
     # Count number of same latitude and longitude
     lat_long_counts = checkout_orders_df[['latitude', 'longitude']].groupby(['latitude', 'longitude']).size().reset_index(name='size')
-    lat_long_counts['color'] = lat_long_counts['size'].apply(lambda x: (x / sum(lat_long_counts['size']), 1, 1))
-    lat_long_counts['size'] = 50
+    lat_long_counts['color'] = lat_long_counts['size'].apply(lambda x: ((int(x / sum(lat_long_counts['size'])) * 255), 255, 255))
+    lat_long_counts['size'] = 100
     print(lat_long_counts)
     with col[1]:
         # Display a map of the data
