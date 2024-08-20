@@ -84,6 +84,7 @@ def get_recent_data(time_filter):
     
     return pizza_orders_df, checkout_orders_df, pizza_df
 
+@st.fragment(run_every=1)
 def show_latest_orders_data():
     pizza_orders_df, checkout_orders_df, pizza_df = get_recent_data(st.session_state.time_filter)
     st.metric(label="Pizza Orders", value=len(pizza_orders_df))
@@ -118,11 +119,11 @@ with col[0]:
 if not checkout_orders_df.empty:
     # Count number of same latitude and longitude
     lat_long_counts = checkout_orders_df[['latitude', 'longitude']].groupby(['latitude', 'longitude']).size().reset_index(name='size')
-    # lat_long_counts['size'] = lat_long_counts['size'] * 1
+    lat_long_counts['size'] = lat_long_counts['size'] / sum(lat_long_counts['size'])
     
     with col[1]:
         # Display a map of the data
-        st.map(lat_long_counts, size='size')
+        st.map(lat_long_counts, color='size')
 
         # Visualize pizza types ordered
         # st.subheader('Pizza Types Ordered')
