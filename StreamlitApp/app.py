@@ -91,7 +91,7 @@ def show_latest_orders_data():
     pizza_orders_df, checkout_orders_df, pizza_df = get_recent_data(st.session_state.time_filter)
     st.metric(label="Pizza Orders", value=len(pizza_orders_df))#, delta=first_state_delta)
     st.metric(label="Successful Checkout Orders", value=len(checkout_orders_df))#, delta=first_state_delta)
-    st.metric(label="Revenue", value=f"£{sum(checkout_orders_df['total_cost')}")#, delta=first_state_delta)
+    st.metric(label="Revenue", value=f"£{sum(checkout_orders_df['total_cost'])}")#, delta=first_state_delta)
     
     return pizza_orders_df, checkout_orders_df, pizza_df
 
