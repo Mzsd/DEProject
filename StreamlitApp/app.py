@@ -21,8 +21,7 @@ st.set_page_config(
 
 alt.themes.enable("dark")
 
-col = st.columns((1.5, 6.5, 0), gap='medium')
- 
+col = st.columns((1.5, 6.5, 0.1), gap='medium')
 
 with st.sidebar:
     st.title('🏂 Pizza Takeaway Dashboard')
