@@ -124,5 +124,5 @@ if not checkout_orders_df.empty:
         st.subheader("Pizza Types Ordered")
         pizza_types = pizza_orders_df.explode('pizzas')['pizzas'].apply(lambda x: x['pizza_type'])
         pizza_type_counts = pizza_types.value_counts().reset_index()
-        fig = px.pie(pizza_type_counts, names='Pizza Type', values='Number of Orders', title='Distribution of Pizza Types Ordered')
+        fig = px.pie(pizza_type_counts, names='pizza_type', values='Number of Orders', title='Distribution of Pizza Types Ordered')
         st.plotly_chart(fig)
