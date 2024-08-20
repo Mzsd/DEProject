@@ -21,7 +21,7 @@ st.set_page_config(
 
 alt.themes.enable("dark")
 
-col = st.columns((1.5, 4.5, 2), gap='medium')
+col = st.columns((1.5, 5, 1.5), gap='medium')
  
 
 with st.sidebar:
