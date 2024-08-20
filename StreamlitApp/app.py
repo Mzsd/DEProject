@@ -91,21 +91,23 @@ def show_latest_orders_data():
     pizza_orders_df, checkout_orders_df, pizza_df = get_recent_data(st.session_state.time_filter)
     st.metric(label="Pizza Orders", value=len(pizza_orders_df))#, delta=first_state_delta)
     st.metric(label="Successful Checkout Orders", value=len(checkout_orders_df))#, delta=first_state_delta)
+    st.metric(label="Revenue", value=f"£{sum(checkout_orders_df['total_cost')}")#, delta=first_state_delta)
     
     return pizza_orders_df, checkout_orders_df, pizza_df
 
 with col[0]:
     # Display summary statistics
     if st.session_state.time_filter == "Daily":
-        st.markdown("#### Today's 🍕 Orders")
+        st.markdown("#### Today's 🍕 Orders Metrics")
     elif st.session_state.time_filter == "Monthly":
-        st.markdown("#### Monthly 🍕 Orders")
+        st.markdown("#### Monthly 🍕 Orders Metrics")
     elif st.session_state.time_filter == "Yearly":
         st.markdown("#### Yearly 🍕 Orders")
     else:
         st.markdown("#### All-time 🍕 Orders")
     # st.markdown("#### Today's 🍕 Orders")
     pizza_orders_df, checkout_orders_df, pizza_df = show_latest_orders_data()
+
     
     
 if not checkout_orders_df.empty:
