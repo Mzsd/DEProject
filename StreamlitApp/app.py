@@ -119,11 +119,12 @@ with col[0]:
 if not checkout_orders_df.empty:
     # Count number of same latitude and longitude
     lat_long_counts = checkout_orders_df[['latitude', 'longitude']].groupby(['latitude', 'longitude']).size().reset_index(name='size')
-    lat_long_counts['size'] = lat_long_counts['size'].apply(lambda x: (x / sum(lat_long_counts['size']), x / sum(lat_long_counts['size']), x / sum(lat_long_counts['size'])))
+    lat_long_counts['color'] = lat_long_counts['size'].apply(lambda x: (x / sum(lat_long_counts['size']), 0, 0))
+    lat_long_counts['color'] = 50
     print(lat_long_counts)
     with col[1]:
         # Display a map of the data
-        st.map(lat_long_counts, color='size')
+        st.map(lat_long_counts, color='color', size='size')
 
         # Visualize pizza types ordered
         # st.subheader('Pizza Types Ordered')
