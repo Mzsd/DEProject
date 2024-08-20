@@ -3,6 +3,7 @@ import pymongo
 import pandas as pd
 import altair as alt
 import streamlit as st
+import plotly.express as px
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
