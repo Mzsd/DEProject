@@ -122,7 +122,7 @@ if not checkout_orders_df.empty:
     lat_long_counts['color'] = lat_long_counts['size'].apply(lambda x: (
             int(x / sum(lat_long_counts['size']) * 255), 
             255,
-            255
+            255 - int(x / sum(lat_long_counts['size']) * 255)
         )
     )
     lat_long_counts['size'] = 100
