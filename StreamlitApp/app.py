@@ -92,9 +92,9 @@ def show_latest_orders_data():
     # Calculate and display revenue with formatting
     total_revenue = sum(checkout_orders_df['total_cost'])
     if total_revenue >= 1_000_000:
-        revenue_display = f"£{total_revenue / 1_000_000:.1f}m"
+        revenue_display = f"£{total_revenue / 1_000_000:.3f}m"
     else:
-        revenue_display = f"£{total_revenue:,.2f}"
+        revenue_display = f"£{total_revenue:,.1f}"
     
     st.metric(label="Revenue", value=revenue_display)
     
